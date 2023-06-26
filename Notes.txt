@@ -1,0 +1,102 @@
+gradle war: -
+
+The "gradle war" command is used to build a Web Archive (WAR) file in Gradle. A WAR file is a packaged format commonly used in Java-based web applications.
+
+When you execute the "gradle war" command, Gradle performs a series of tasks such as compiling source code, processing resources, and packaging them into a single WAR file.
+The resulting WAR file can be deployed to a web server or container, allowing the application to be hosted and accessed over the internet.
+
+===========================================================================
+
+If we want to deploy the war on jetty server, we will use: -
+
+The "gradle appRun" command is typically used in Gradle projects that utilize the Gradle plugin called "Gradle Application Plugin."
+
+When you execute the "gradle appRun" command, Gradle performs the following tasks:
+
+Compiles the source code of your application.
+Resolves and configures the necessary dependencies.
+Bundles the compiled code and dependencies into a runnable format.
+Starts a local development server or an embedded server.
+Deploys and runs your application on the local server.
+In essence, "gradle appRun" sets up a development environment that allows you to run your application locally for testing and development purposes.
+This command is particularly useful for web applications or server-side applications that need to be executed in a specific runtime environment.
+
+It's worth noting that the behavior of "gradle appRun" can vary depending on the specific configuration
+of your Gradle project, including the application plugin settings and any customizations made to the build.gradle file.
+
+Overall, "gradle appRun" simplifies the process of running and testing your application during development,
+providing a convenient way to validate your code locally before deploying it to a production environment.
+
+
+The "gradle appRun" command, by itself, does not deploy the application on Tomcat or Jetty servers.
+
+In Gradle, the "appRun" task is provided by the Gradle Application Plugin. This task is primarily used to start
+a local development server or an embedded server to run your application for testing and development purposes.
+
+To deploy your application on Tomcat or Jetty using Gradle, you would need to configure your build.gradle file
+accordingly. You can include additional plugins, such as the "Tomcat plugin" or the "Jetty plugin,"
+and configure them to deploy your application to the respective servers.
+
+For example, if you are using the Tomcat plugin, you would typically define the Tomcat version, specify the
+deployment settings, and provide the necessary configuration details in your build.gradle file. Once
+configured, you can use the appropriate Gradle task, such as "tomcatRun" or "tomcatDeploy," to deploy and run your application on Tomcat.
+
+Similarly, if you are using the Jetty plugin, you would configure the Jetty version, deployment settings,
+and other required details in your build.gradle file. Then, you can use the "jettyRun" or "jettyDeploy" task to deploy and run your application on Jetty.
+
+In summary, while the "gradle appRun" command itself does not deploy the application on Tomcat or Jetty,
+you can use additional plugins and configuration in your build.gradle file to enable deployment to these servers and utilize specific Gradle tasks for deployment.
+
+**
+When you use the Gretty plugin with the following configuration in your build.gradle file:
+
+plugins {
+    id 'org.gretty' version '4.0.3'
+}
+By default, the Gretty plugin deploys your application on an embedded Jetty server.
+However, you can specify the use of Tomcat instead by configuring the plugin accordingly.
+
+To deploy your application on Tomcat using the Gretty plugin, you need to add
+the following configuration to your build.gradle file:
+
+gretty {
+    container = 'tomcat'
+}
+
+With this configuration, when you run the "gradle appRun" command, the Gretty plugin will deploy your application on the embedded Tomcat server.
+
+If you don't explicitly specify the container as shown above, the Gretty plugin will default to
+using Jetty as the embedded server for deploying your application.
+
+Therefore, based on the presence or absence of the "gretty { container = 'tomcat' }" configuration
+in your build.gradle file, you can determine whether your application is deployed on Jetty (default) or Tomcat.
+
+Remember to clean and rebuild your project (gradle clean) after making changes to your build.gradle file to ensure the updated configurations take effect.
+
+
+
+** Summary -> Since we have used plugin :-
+
+plugins {
+    id 'org.gretty' version '4.0.3'
+}
+
+gradle appRun -> will deploy the app on jetty server
+
+gradle tomcatRun -> will deploy the server on tomcat server
+
+another way to run the server on tomcat is that you can configure the gretty container by :-
+gretty {
+    container = 'tomcat'
+}
+With this configuration, when you run the "gradle appRun" command, the Gretty plugin will deploy your application on the embedded Tomcat server.
+
+===============================================================================================================================================================
+
+We can also change the port that our gretty plugin is using.
+We can do this by changing the httpPort of gretty plugin in the build.gradle
+as follows:
+
+gretty.httpPort = 8081 (whichever port is free)
+
+===============================================================================================================================================================
