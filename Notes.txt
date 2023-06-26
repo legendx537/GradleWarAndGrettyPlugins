@@ -99,4 +99,5 @@ as follows:
 
 gretty.httpPort = 8081 (whichever port is free)
 
+After changing the port , our application will be running on port 8081.
 ===============================================================================================================================================================
