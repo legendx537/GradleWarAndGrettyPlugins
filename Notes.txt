@@ -113,3 +113,30 @@ testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.3.1'
 testImplementation group: 'junit', name: 'junit', version: '4.4'
 
 ===============================================================================================================================================================
+
+Before we have tested the servlet.java methods doPost and doGet.
+Now we will be generating the jacoco test Report for the project.
+
+we just have to add the plugin:
+
+id 'jacoco'
+
+It will bring some tasks along with the plugin with the help of which we can generate test report.
+
+we can make jacoco Report available after test cases are run by using finalizedBy
+in build.gradle like: -
+
+test.finalizedBy jacocoTestReport -> it will generate jacocoReports in the libs/jacoco
+
+we can refer the html produced by the task to see the test coverage.
+
+if we run the jacocoTestReport without running the test then we will not have any report,
+because it needs the test to be run, so that it can generate report.
+
+If we want to run the test every time before running jacocoTestReport,
+so that we do not get empty test report, we can add : -
+
+jacocoTestReport.dependsOn test -> this will run test every time before jacocoTestReport is run.
+
+jacocoTestReport will analyze how many lines are covered under the test report.
+===============================================================================================================================================================
