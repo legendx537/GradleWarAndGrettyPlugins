@@ -1,4 +1,4 @@
-package com.Legend.gradle;
+package com.legend.gradle;
 
 import  org.junit.Before;
 import  org.junit.Test;
@@ -22,7 +22,7 @@ public class CouponServletTest {
  
     @Before
     public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
     @Test
     public void doGet() throws Exception{

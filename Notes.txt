@@ -140,3 +140,127 @@ jacocoTestReport.dependsOn test -> this will run test every time before jacocoTe
 
 jacocoTestReport will analyze how many lines are covered under the test report.
 ===============================================================================================================================================================
+
+Now we are Learning how to generate a Install SonarQube: -
+
+SonarQube is generally used for code-analysis , identifying security bugs , more information can be found on chatgpt.
+
+First download Sonar Community Edition(as it is free)
+Then unzip the download file.
+Keep the folder in some known folder.
+Set the environment path to all upto windows path going through the bin path of sonar folder.(So that we can start sonar bat file)
+
+Next step:-
+Navigate to the sonar Folder in the cmd
+Then Navigate to windows folder inside the bin
+Then Run the StartSonar.bat file to launch Sonar Analysis.(It will accessible on localhost:9000 )
+
+Next step: -
+add the plugin: -
+id 'org.sonarqube' version 'latest-version'
+
+Generate token for the sonarQube by: -
+Going to My Account
+Then going to the security tab, generate a token.
+
+for this project, we will use token:- squ_2d9a3925cd7a6768119894420eec968155f372bc
+squ_2d9a3925cd7a6768119894420eec968155f372bc ( valid for 30 days )
+
+Proper Command: -
+gradle sonar -Dsonar.login={token_from_my-account->security}
+
+replacing the token with real token: -
+gradle sonar -Dsonar.login=squ_2d9a3925cd7a6768119894420eec968155f372bc
+
+gradle sonarqube -Dsonar.login=squ_2d9a3925cd7a6768119894420eec968155f372bc
+
+=====================================================================================================================================================
+
+Gretty Plugin is not fully supported in gradle 7.0: -
+
+The error you're encountering is due to the Gretty plugin not fully supporting Gradle 7.0 and above. The plugin relies on a method called Project.afterEvaluate() that has changed its behavior in Gradle 7.0, causing the error you're seeing.
+
+To resolve this issue, you have a few options:
+
+Downgrade Gradle: If you don't specifically require Gradle 7.0 or above for your project, you can consider downgrading to a lower version of Gradle (e.g., Gradle 6.x) where the Gretty plugin works without issues. To do this, you need to update the Gradle version specified in your project's gradle/wrapper/gradle-wrapper.properties file.
+
+Check for Gretty updates: Keep an eye on the official Gretty plugin documentation or the project's GitHub repository for updates that address compatibility with Gradle 7.0 and above. Once an updated version is available, you can upgrade the Gretty plugin in your project.
+
+Remove or replace Gretty: If you don't depend heavily on the Gretty plugin and can explore alternatives, you may consider removing or replacing it with another plugin that supports Gradle 7.0 and above. This option depends on your project's requirements and use case.
+
+Remember to backup your project before making any changes and consider testing them in a separate environment to ensure they work as expected.
+
+Please let me know if you need further assistance or have any additional questions.
+
+=====================================================================================================================================================
+How to downgrade the gradle version of project from 7.2 to 6.9.2?
+
+To downgrade the Gradle version of your project from 7.2 to 6.9.2, you need to update the Gradle version specified in your project's gradle/wrapper/gradle-wrapper.properties file. Here's how you can do it:
+
+Open the gradle/wrapper/gradle-wrapper.properties file in a text editor.
+
+Look for the following line:
+
+distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
+Replace it with the following line:
+
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.9.2-bin.zip
+This specifies the URL for the Gradle distribution to be used.
+
+Save the file.
+
+Once you have updated the gradle-wrapper.properties file, Gradle will automatically download the specified Gradle version (6.9.2) the next time you run a Gradle command, such as ./gradlew build.
+
+After downgrading Gradle, you should retest your project to ensure everything works as expected with the older version.
+
+Please let me know if you have any further questions!
+
+=====================================================================================================================================================
+
+what are the replacement for gretty plugin: -
+
+If you need an alternative to the Gretty plugin for running and deploying web applications in Gradle, you can consider using the following plugins:
+
+Spring Boot Plugin: If you are using Spring Boot for your web application, you can leverage the Spring Boot Gradle plugin (org.springframework.boot) instead. It provides tasks for running and packaging Spring Boot applications, and it integrates well with the Spring Boot framework.
+
+To use the Spring Boot plugin, add the following line to your build.gradle file:
+
+plugins {
+    id 'org.springframework.boot' version 'x.x.x' // Replace with the desired version
+}
+Make sure to replace 'x.x.x' with the specific version of the Spring Boot plugin you want to use. You can find the latest version on the Spring Boot documentation or the Gradle plugin portal.
+
+Tomcat Plugin: If you prefer using Apache Tomcat as your web server, you can use the Tomcat plugin (com.bmuschko.tomcat) for Gradle. It allows you to deploy your web application to a local or remote Tomcat server.
+
+To use the Tomcat plugin, add the following lines to your build.gradle file:
+
+plugins {
+    id 'com.bmuschko.tomcat' version 'x.x.x' // Replace with the desired version
+}
+
+tomcat {
+    // Configure Tomcat settings, e.g., server URL, credentials, context path, etc.
+}
+Again, make sure to replace 'x.x.x' with the specific version of the Tomcat plugin you want to use. You can find the latest version on the Gradle plugin portal.
+
+Both the Spring Boot plugin and the Tomcat plugin provide convenient tasks and configurations to run and deploy web applications. Choose the one that aligns with your project requirements and preferences.
+
+Remember to sync your Gradle project after adding the plugin, and you should be able to utilize the features provided by the chosen plugin.
+
+Let me know if you need further assistance!
+
+=====================================================================================================================================================
+
+for recent version of sonarqube, we need a token for generating the report: -
+
+That we have configured in the buils.gradle.
+
+We have successfully generated the sonarReport by: -
+
+first launching the sonarqube on localhost:9000
+and then going to particular project, adding the plugin and adding the corresponding token.
+
+then running: - gradle clean build -> to clean and build the project again
+then finaaly run: - gradle sonarqube -> to generate a soner report on the localhost:9000 for our project.
+
+=====================================================================================================================================================
